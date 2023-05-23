@@ -15,8 +15,9 @@ class MinimalPublisher(Node):
     def __init__(self):
         super().__init__('lidar_detect')
         self.publisher = self.create_publisher(Twist, 'cmd_vel',10)
-        self.get_logger().info("Not Close Obstacle, Let move")
-        self.timers = self.create_timer(0.1,self.kick)
+        self.get_logger().info("Start")
+        self.timers = self.create_timer(10,self.kick)
+    
 
     def kick(self):
          self.get_logger().info("kick")
