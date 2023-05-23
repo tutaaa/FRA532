@@ -21,22 +21,10 @@ class MinimalPublisher(Node):
             qos_profile=qos_profile_sensor_data)
         self.subscription
         self.publisher = self.create_publisher(Twist, 'cmd_vel',10)
+        self.get_logger().info("Not Close Obstacle, Let move")
 
 
 
-
-    def listener_callback(self, msg:LaserScan):
-        distance = msg.ranges[0]
-        self.get_logger().info("distance:%s"% distance)
-        
-        if ((distance < self.min_distance)and(distance > 0.1)):
-            self.force = self.kf * (distance - self.min_distance)
-           
-            self.get_logger().info("Close to the wall")
-        else:
-            self.is_obstacle_close = False
-           
-            self.get_logger().info("Not Close Obstacle, Let move")
 
 def main(args=None):
     rclpy.init(args=args)
