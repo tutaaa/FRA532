@@ -14,14 +14,12 @@ class MinimalPublisher(Node):
 
     def __init__(self):
         super().__init__('lidar_detect')
-        self.subscription = self.create_subscription(
-            LaserScan,
-            'scan',
-            self.listener_callback,
-            qos_profile=qos_profile_sensor_data)
-        self.subscription
         self.publisher = self.create_publisher(Twist, 'cmd_vel',10)
         self.get_logger().info("Not Close Obstacle, Let move")
+        self.timers = self.create_timer(0.1,self.kick)
+
+    def kick(self):
+         self.get_logger().info("kick")
 
 
 
