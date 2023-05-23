@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(falcon_turtlebot)
+project(FRA532)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -22,7 +22,7 @@ find_package(ament_cmake REQUIRED)
 # find_package(<dependency> REQUIRED)
 
 install(PROGRAMS
-  src/falon_teleop.py
+  src/kick.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
