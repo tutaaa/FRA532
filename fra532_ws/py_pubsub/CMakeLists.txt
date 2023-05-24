@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(fra532)
+project(py_pubsub)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -20,24 +20,15 @@ find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
-find_package(geometry_msgs)
-find_package(ament_cmake REQUIRED)        # cpp (optional)
-find_package(rclcpp REQUIRED)            # cpp (optional)
-find_package(ament_cmake_python REQUIRED)       # python (optional)
-find_package(rclpy REQUIRED)                    # python (optional)
-######################################################
 
-# Install Python Module
-ament_python_install_package(${PROJECT_NAME})
+add_executable(my_node py_pubsub/publisher_member_function.py)
+target_include_directories(my_node PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
 
-install(PROGRAMS
-  src/kick.py
-  DESTINATION lib/${PROJECT_NAME}
-)
+install(TARGETS my_node
 
-install(DIRECTORY src
-  DESTINATION share/${PROJECT_NAME})
+  DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
