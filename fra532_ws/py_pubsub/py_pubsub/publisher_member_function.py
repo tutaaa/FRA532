@@ -34,12 +34,12 @@ class MinimalPublisher(Node):
         msg = String()
 
         vel_msg = Twist()
-        vel_msg.linear.x = 1
-        vel_msg.linear.y = 0
-        vel_msg.linear.z = 0
-        vel_msg.angular.x = 0
-        vel_msg.angular.y = 0
-        vel_msg.angular.z = 0
+        vel_msg.linear.x = 0.22
+        vel_msg.linear.y = 0.0
+        vel_msg.linear.z = 0.0
+        vel_msg.angular.x = 0.0
+        vel_msg.angular.y = 0.0
+        vel_msg.angular.z = 0.0
 
         msg.data = 'Hello World: %d' % self.i
         self.publisher_.publish(msg)
