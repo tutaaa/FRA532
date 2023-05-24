@@ -25,28 +25,31 @@ class MinimalPublisher(Node):
         self.publisher_ = self.create_publisher(String, 'topic', 10)
         timer_period = 0.5  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
+        self.kick = self.create_timer(timer_period, self.kickball)
         self.i = 0
         self.velocity_publisher = self.create_publisher(Twist,'cmd_vel',10)
-     
-
-
-    def timer_callback(self):
-        msg = String()
-
+        self.get_logger().info('Prepare to kick')
+        self.velocity = 0.2
+        
+    def kickball(self):
         vel_msg = Twist()
-        vel_msg.linear.x = 0.22
-        vel_msg.linear.y = 0.0
-        vel_msg.linear.z = 0.0
-        vel_msg.angular.x = 0.0
-        vel_msg.angular.y = 0.0
-        vel_msg.angular.z = 0.0
 
-        msg.data = 'Hello World: %d' % self.i
+        if(self.i % 2 == 0):
+            self.velocity = self.velocity * -1.0
+            vel_msg.linear.x = self.velocity
+            self.velocity_publisher.publish(vel_msg) 
+            self.get_logger().info('Change Velocity to "%f"' % self.velocity)
+        
+    def timer_callback(self):
+        
+        
+
+        msg = String()
+        msg.data = 'Timer: %f' % self.i
         self.publisher_.publish(msg)
-        self.velocity_publisher.publish(vel_msg)
-
         self.get_logger().info('Publishing: "%s"' % msg.data)
-        self.i += 1
+        self.i += 0.5
+
         
 
 
