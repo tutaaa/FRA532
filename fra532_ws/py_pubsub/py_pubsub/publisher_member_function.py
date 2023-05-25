@@ -35,16 +35,16 @@ class MinimalPublisher(Node):
     def kickball(self):
         vel_msg = Twist()
 
-        if(self.i > 4.5):
+        if(self.i >= 3.5):
             self.velocity = 0.0
             vel_msg.linear.x = self.velocity
             self.velocity_publisher.publish(vel_msg) 
             self.get_logger().info('Change Velocity to "%f"' % self.velocity)
             rclpy.shutdown()
-        elif(self.i > 2.0):
+        elif(self.i >= 2.0):
             self.velocity = 0.2
              
-        elif(self.i > 0):
+        elif(self.i >= 0):
             self.velocity = -0.05
             
         vel_msg.linear.x = self.velocity
